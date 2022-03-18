@@ -1,0 +1,115 @@
+﻿@model Core.Models.CafeCommentViewModel
+
+@{
+    var ratingSum = ViewBag.RatingSum;
+    var ratingCount = ViewBag.RatingCount;
+
+    decimal rating = 0;
+    if (ratingCount > 0)
+    {
+        rating = (ratingSum / ratingCount);
+    }
+    var totalRating = decimal.Parse(rating.ToString());
+}
+
+<h1>@Model.NomeCafe</h1>
+
+<!---<div>
+    <span class="starFadeN" id="sRate1"></span><span class="starFadeN" id="sRate2"></span><span class="starFadeN" id="sRate3"></span><span class="starFadeN" id="sRate4"></span><span class="starFadeN" id="sRate5"></span>
+</div>-->
+@foreach (var c in Model.ListOfComments)
+{
+    <hr />
+    <div class="row">
+        <div class="col-md-3">
+            <i>@c.PublishedDate</i>
+            <br />
+            @for (var i = 1; i <= c.Rating; i++)
+            {
+                <span class="starGlowN"></span>
+            }
+            @for (var i = (c.Rating + 1); i <= 5; i++)
+            {
+                <span class="starFadeN"></span>
+            }
+        </div>
+        <div class="col-md-9">
+            @Html.Raw(c.Comments.Replace("\n", "<br />"))
+
+        </div>
+    </div>
+}
+
+<hr />
+<partial name="CafeCommentBox" />
+<div>
+    <a asp-action="Index">Voltar para o feed de cafés</a>
+</div>
+<script>
+    function SCRate() {
+        for (var i = 1; i <= @totalRating; i++) {
+            $("#sRate" + i).attr('class', 'starGlowN');
+        }
+    }
+    $(function () {
+        SCRate();
+
+    });
+</script>
+
+<style>
+
+    .dl-horizontal dt {
+        white-space: normal;
+    }
+
+    input,
+    select,
+    textarea {
+        max-width: 280px;
+    }
+
+    .custom-control-label::before {
+        display: none !important;
+    }
+
+    .commentBox {
+        background-color: white;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+
+
+
+    .starFade {
+        background-color: grey;
+        min-width: 30px;
+        min-height: 30px;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .starFadeN {
+        background-color: grey;
+        min-width: 30px;
+        min-height: 30px;
+        display: inline-block;
+    }
+
+    .starGlow {
+        background-color: yellow;
+        min-width: 30px;
+        min-height: 30px;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .starGlowN {
+        background-color: yellow;
+        min-width: 30px;
+        min-height: 30px;
+        display: inline-block;
+    }
+</style>
+

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Core.Models.CafeComment>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Comentários</h2>
+
+
+
+
+@foreach (var item in Model) {
+
+        <div class="card mb-3">
+            <div class="card-header">
+               
+                @Html.DisplayFor(modelItem => item.PublishedDate)
+                <a style="float:right;" class="btn btn-sm btn-light" asp-area="" asp-controller="Cafecomments" asp-action="Delete" asp-route-id="@item.Id">
+                    Apagar comentário
+                </a>
+            </div>
+            <div class="card-body">
+                    <div>
+                      <strong>Comentário</strong>:  @Html.DisplayFor(modelItem => item.Comments)
+                    </div>            
+                <div>
+                    <strong>Nota</strong>: @Html.DisplayFor(modelItem => item.Rating)
+                </div>
+            </div>
+        </div>
+        
+}
+

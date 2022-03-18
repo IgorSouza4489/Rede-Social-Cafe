@@ -1,0 +1,28 @@
+﻿@model Core.Models.CafeComment
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Apagar</h2>
+
+<hr />
+
+<h3>Têm certeza de que deseja apagar o comentário?</h3>
+<div>
+
+    <hr />
+    <dl class="row">
+
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Comments)
+        </dd>
+
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Voltar para lista de comentários</a>
+    </form>
+</div>
