@@ -11,9 +11,11 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CafeJWTMVC.Controllers
 {
+    [Authorize]
     public class CafeCommentsController : Controller
     {
         private readonly ApplicationDBContext _context;

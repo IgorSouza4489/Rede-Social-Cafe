@@ -67,7 +67,7 @@ namespace CafeJWTMVC
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Cafes}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
 
             });

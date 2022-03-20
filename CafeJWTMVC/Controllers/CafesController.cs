@@ -13,15 +13,20 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace CafeJWTMVC.Controllers
 {
+    [Authorize]
     public class CafesController : Controller
     {
 
             public static string baseUrl = "http://localhost:62049/api/cafes/";
-            public async Task<IActionResult> Index()
+
+
+    public async Task<IActionResult> Index()
             {
+                
                 var products = await GetProducts();
                 return View(products);
             }

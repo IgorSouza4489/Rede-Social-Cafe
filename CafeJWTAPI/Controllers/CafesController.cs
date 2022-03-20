@@ -13,8 +13,6 @@ namespace CafeJWTAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
-
     public class CafesController : ControllerBase
     {
         private readonly ApplicationDBContext _context;
