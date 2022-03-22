@@ -1,11 +1,14 @@
 ﻿@model IEnumerable<Core.Models.Cafe>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Amantes do Café";
 }
 
 <div class="text-center">
-    <h3 class="display-4">Seja bem vindo <br />ao<br /> Amantes de Café</h3>
+    <h3 class="display-4">Amantes do Café</h3>
+    <h4 style="color:dimgrey">
+        Hoje é dia @Html.Label("PublishedDate", DateTime.Today.ToShortDateString().ToString(), new { @readonly = "readonly" })
+    </h4>
 </div>
 
 
@@ -118,7 +121,7 @@
 
                     </div>
                     <div class="card-body">
-                        <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>PUBLISHED DATE</div>
+                        <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>@Html.DisplayFor(modelItem => item.PublishedDate)</div>
 
 
                         <p class="card-text">
@@ -138,7 +141,7 @@
                         </p>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
+                        <!----------- <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>------->
                         <a style="" class="card-link" asp-area="" asp-controller="Cafes" asp-action="Details" asp-route-id="@item.Id">
                             <i class="fa fa-comment"></i>
                             Comentários

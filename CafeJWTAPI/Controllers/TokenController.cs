@@ -30,37 +30,48 @@ namespace CafeJWTAPI.Controllers
         }
 
 
-
-       /* private readonly UserManager<UserInfo> userManager;
-
-        [HttpPost]
-        [Route("Register")]
-        public async Task<IActionResult> Register([FromBody] UserInfo userDetails)
+        private readonly UserManager<UserInfo> _userManager;
+        private readonly SignInManager<UserInfo> _signInManager;
+        public TokenController(UserManager<UserInfo> userManager,
+            SignInManager<UserInfo> signInManager)
         {
-            if (!ModelState.IsValid || userDetails == null)
-            {
-                return new BadRequestObjectResult(new { Message = "User Registration Failed" });
-            }
+            _userManager = userManager;
+            _signInManager = signInManager;
 
-            var identityUser = new UserInfo() { UserName = userDetails.UserName, Email = userDetails.Email, Password = userDetails.Password, CafeFavorito = userDetails.CafeFavorito };
-            var result = await userManager.CreateAsync(identityUser, userDetails.Password);
-
-
-            if (!result.Succeeded)
-            {
-                var dictionary = new ModelStateDictionary();
-                foreach (IdentityError error in result.Errors)
-                {
-                    dictionary.AddModelError(error.Code, error.Description);
-                }
-
-                return new BadRequestObjectResult(new { Message = "User Registration Failed", Errors = dictionary });
-            }
-
-            return Ok(new { Message = "User Registration Successful" });
         }
-       */
 
+        /* private readonly UserManager<UserInfo> userManager;
+
+         [HttpPost]
+         [Route("Register")]
+         public async Task<IActionResult> Register([FromBody] UserInfo userDetails)
+         {
+             if (!ModelState.IsValid || userDetails == null)
+             {
+                 return new BadRequestObjectResult(new { Message = "User Registration Failed" });
+             }
+
+             var identityUser = new UserInfo() { UserName = userDetails.UserName, Email = userDetails.Email, Password = userDetails.Password, CafeFavorito = userDetails.CafeFavorito };
+             var result = await userManager.CreateAsync(identityUser, userDetails.Password);
+
+
+             if (!result.Succeeded)
+             {
+                 var dictionary = new ModelStateDictionary();
+                 foreach (IdentityError error in result.Errors)
+                 {
+                     dictionary.AddModelError(error.Code, error.Description);
+                 }
+
+                 return new BadRequestObjectResult(new { Message = "User Registration Failed", Errors = dictionary });
+             }
+
+             return Ok(new { Message = "User Registration Successful" });
+         }
+        */
+
+
+        
 
         [HttpPost]
         public async Task<IActionResult> Post(UserInfo userInfo)
@@ -77,8 +88,8 @@ namespace CafeJWTAPI.Controllers
                     new Claim("Id",user.UserId.ToString()),
                     new Claim("UserName", user.UserName),
                     new Claim("Password", user.Password)
+                    
                     };
-
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
                     var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
                     var token = new JwtSecurityToken(

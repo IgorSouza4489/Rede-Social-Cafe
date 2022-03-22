@@ -13,7 +13,7 @@ namespace CafeJWTMVC
             var client = new HttpClient();
             /*client.DefaultRequestHeaders.Authorization =
             new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);*/
-
+            
             client.BaseAddress = new Uri("http://localhost:62049/");
             return client;
         }

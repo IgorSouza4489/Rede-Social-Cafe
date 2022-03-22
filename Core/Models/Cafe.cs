@@ -18,6 +18,13 @@ namespace Core.Models
         public string Regiao { get; set; }
         [Required]
         public string Impressoes { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime PublishedDate { get; set; } = DateTime.Now;
+
+
+
         public ICollection<CafeComment> CafesComments { get; set; }
 
 

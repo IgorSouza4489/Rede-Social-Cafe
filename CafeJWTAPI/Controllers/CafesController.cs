@@ -81,6 +81,8 @@ namespace CafeJWTAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Cafe>> PostCafe(Cafe cafe)
         {
+
+            
             _context.Cafe.Add(cafe);
             await _context.SaveChangesAsync();
 
