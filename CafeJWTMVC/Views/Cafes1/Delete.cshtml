@@ -12,12 +12,6 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Produtor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Produtor)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.NomeCafe)
         </dt>
         <dd class = "col-sm-10">
@@ -30,17 +24,29 @@
             @Html.DisplayFor(model => model.Nota)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Regiao)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Regiao)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Impressoes)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Impressoes)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PublishedDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PublishedDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Produtor)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Produtor.ProdutorId)
+        </dd class>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Regiao)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Regiao.RegiaoId)
+        </dd class>
     </dl>
     
     <form asp-action="Delete">

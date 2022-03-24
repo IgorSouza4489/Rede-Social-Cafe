@@ -1,7 +1,9 @@
 ﻿@model Core.Models.Cafe
 
-<h4>Cafe</h4>
-<hr />
+@{
+    ViewData["Title"] = "Create";
+}
+
 <div class="row">
     <div class="col-md-6">
         <div class="col-md-3">
@@ -16,7 +18,7 @@
                 <input asp-for="NomeCafe" class="form-control" />
                 <span asp-validation-for="NomeCafe" class="text-danger"></span>
             </div>
-     
+
             <div class="form-group">
                 <label asp-for="Impressoes" class="control-label"></label>
                 <input asp-for="Impressoes" class="form-control" />
@@ -36,7 +38,7 @@
                 <select asp-for="RegiaoId" class="form-control" asp-items="ViewBag.RegiaoId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Publicar" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -48,7 +50,7 @@
                 <p class="card-text">
                     Em 8 dias de guerra café recua mais de 2300 pontos com cenário de incerteza no consumo e volta ao patamar de R$ 1.300 no BR
                 </p>
-                <a href="https://www.noticiasagricolas.com.br/noticias/cafe/310926-em-8-dias-de-guerra-cafe-recua-mais-de-2300-pontos-com-cenario-de-incerteza-no-consumo-e-volta-ao-patamar-de-r-1-300-no-br.html#.Yjs76tbMIdU" class="card-link">link completo</a>
+                <a href="https://www.noticiasagricolas.com.br/noticias/cafe/310926-em-8-dias-de-guerra-cafe-recua-mais-de-2300-pontos-com-cenario-de-incerteza-no-consumo-e-volta-ao-patamar-de-r-1-300-no-br.html#.Yjs76tbMIdU" class="card-link">Clique aqui!</a>
             </div>
         </div>
         <div class="card gedf-card">
@@ -57,7 +59,7 @@
                 <p class="card-text">
                     This is a result of the frost in July, as producers uprooted and pruned more trees. Following the Kremlin’s invasion of Ukraine, the volume of fertilisers purchased in Brazil over a two-day period was the equivalent of levels bought throughout all of January. However, most fertiliser was purchased by soybean, corn, and wheat producers.
                 </p>
-                <a href="https://perfectdailygrind.com/2022/03/coffee-news-recap-18-mar/" class="card-link">full link</a>
+                <a href="https://perfectdailygrind.com/2022/03/coffee-news-recap-18-mar/" class="card-link">Clique aqui!</a>
 
             </div>
         </div>
@@ -249,7 +251,7 @@
 
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar para o feed</a>
 </div>
 
 @section Scripts {

@@ -16,7 +16,28 @@ namespace Data
             : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+
+            modelBuilder.Entity<Cafe>()
+                .HasOne(b => b.Produtor)
+                .WithMany(ba => ba.Cafe)
+                .HasForeignKey(bi => bi.ProdutorId);
+
+            modelBuilder.Entity<Cafe>()
+               .HasOne(b => b.Regiao)
+               .WithMany(ba => ba.Cafe)
+               .HasForeignKey(bi => bi.RegiaoId);
+        }
         public DbSet<Core.Models.Cafe> Cafe { get; set; }
+        public DbSet<Core.Models.Produtor> Produtor { get; set; }
+        public DbSet<Core.Models.Regiao> Regiao { get; set; }
+
+
+
         public virtual DbSet<UserInfo> UserInfo { get; set; }
         public DbSet<Core.Models.CafeComment> CafeComments { get; set; }
 

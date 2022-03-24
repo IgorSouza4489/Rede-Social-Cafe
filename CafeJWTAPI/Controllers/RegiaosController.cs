@@ -12,49 +12,48 @@ namespace CafeJWTAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CafesController : ControllerBase
+    public class RegiaosController : ControllerBase
     {
         private readonly ApplicationDBContext _context;
 
-        public CafesController(ApplicationDBContext context)
+        public RegiaosController(ApplicationDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/Cafes
+        // GET: api/Regiaos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Cafe>>> GetCafe()
+        public async Task<ActionResult<IEnumerable<Regiao>>> GetRegiao()
         {
-            return await _context.Cafe.ToListAsync();
+            return await _context.Regiao.ToListAsync();
         }
 
-        // GET: api/Cafes/5
+        // GET: api/Regiaos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Cafe>> GetCafe(int id)
+        public async Task<ActionResult<Regiao>> GetRegiao(int id)
         {
+            var regiao = await _context.Regiao.FindAsync(id);
 
-            var cafe = await _context.Cafe.FindAsync(id);
-
-            if (cafe == null)
+            if (regiao == null)
             {
                 return NotFound();
             }
 
-            return cafe;
+            return regiao;
         }
 
-        // PUT: api/Cafes/5
+        // PUT: api/Regiaos/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCafe(int id, Cafe cafe)
+        public async Task<IActionResult> PutRegiao(int id, Regiao regiao)
         {
-            if (id != cafe.Id)
+            if (id != regiao.RegiaoId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(cafe).State = EntityState.Modified;
+            _context.Entry(regiao).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +61,7 @@ namespace CafeJWTAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CafeExists(id))
+                if (!RegiaoExists(id))
                 {
                     return NotFound();
                 }
@@ -75,37 +74,37 @@ namespace CafeJWTAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Cafes
+        // POST: api/Regiaos
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Cafe>> PostCafe(Cafe cafe)
+        public async Task<ActionResult<Regiao>> PostRegiao(Regiao regiao)
         {
-            _context.Cafe.Add(cafe);
+            _context.Regiao.Add(regiao);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCafe", new { id = cafe.Id }, cafe);
+            return CreatedAtAction("GetRegiao", new { id = regiao.RegiaoId }, regiao);
         }
 
-        // DELETE: api/Cafes/5
+        // DELETE: api/Regiaos/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Cafe>> DeleteCafe(int id)
+        public async Task<ActionResult<Regiao>> DeleteRegiao(int id)
         {
-            var cafe = await _context.Cafe.FindAsync(id);
-            if (cafe == null)
+            var regiao = await _context.Regiao.FindAsync(id);
+            if (regiao == null)
             {
                 return NotFound();
             }
 
-            _context.Cafe.Remove(cafe);
+            _context.Regiao.Remove(regiao);
             await _context.SaveChangesAsync();
 
-            return cafe;
+            return regiao;
         }
 
-        private bool CafeExists(int id)
+        private bool RegiaoExists(int id)
         {
-            return _context.Cafe.Any(e => e.Id == id);
+            return _context.Regiao.Any(e => e.RegiaoId == id);
         }
     }
 }

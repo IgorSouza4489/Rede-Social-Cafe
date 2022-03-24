@@ -9,31 +9,44 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CafeJWTMVC</title>
+    <title>@ViewData["Title"] AmantesCafé </title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <img src="https://storagevik.blob.core.windows.net/cafecontainer/LogoAmantesCafe.png" width="50" height="50" alt="">
+
             <div class="container">
 
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
+
                         <!----
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-    </li>---->
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                </li>---->
                         <!--- <li class="nav-item">
-                                <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-                            </li>
-    ------>
+                                            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                                        </li>
+                ------>
+
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="listusers">Usuários</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Cafes" asp-action="Index">Cafés</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Regiaos" asp-action="Index">Regiões</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Produtors" asp-action="Index">Produtores</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Cafes1" asp-action="Index">Cafés</a>
                         </li>
 
                         <li class="nav-item">
@@ -47,9 +60,9 @@
                     </ul>
                 </div>
                 <!----
-    <a class="btn btn-sm btn-danger" asp-area="" asp-controller="Home" asp-action="Logoff" style="float:right;">
-        LogOff
-    </a>--------->
+        <a class="btn btn-sm btn-danger" asp-area="" asp-controller="Home" asp-action="Logoff" style="float:right;">
+            LogOff
+        </a>--------->
             </div>
 
         </nav>

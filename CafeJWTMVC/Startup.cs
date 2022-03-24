@@ -82,7 +82,7 @@ namespace CafeJWTMVC
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Cafes}/{action=Index}/{id?}");
+                    pattern: "{controller=Cafes1}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
 
             });

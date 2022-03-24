@@ -12,49 +12,48 @@ namespace CafeJWTAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CafesController : ControllerBase
+    public class ProdutorsController : ControllerBase
     {
         private readonly ApplicationDBContext _context;
 
-        public CafesController(ApplicationDBContext context)
+        public ProdutorsController(ApplicationDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/Cafes
+        // GET: api/Produtors
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Cafe>>> GetCafe()
+        public async Task<ActionResult<IEnumerable<Produtor>>> GetProdutor()
         {
-            return await _context.Cafe.ToListAsync();
+            return await _context.Produtor.ToListAsync();
         }
 
-        // GET: api/Cafes/5
+        // GET: api/Produtors/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Cafe>> GetCafe(int id)
+        public async Task<ActionResult<Produtor>> GetProdutor(int id)
         {
+            var produtor = await _context.Produtor.FindAsync(id);
 
-            var cafe = await _context.Cafe.FindAsync(id);
-
-            if (cafe == null)
+            if (produtor == null)
             {
                 return NotFound();
             }
 
-            return cafe;
+            return produtor;
         }
 
-        // PUT: api/Cafes/5
+        // PUT: api/Produtors/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCafe(int id, Cafe cafe)
+        public async Task<IActionResult> PutProdutor(int id, Produtor produtor)
         {
-            if (id != cafe.Id)
+            if (id != produtor.ProdutorId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(cafe).State = EntityState.Modified;
+            _context.Entry(produtor).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +61,7 @@ namespace CafeJWTAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CafeExists(id))
+                if (!ProdutorExists(id))
                 {
                     return NotFound();
                 }
@@ -75,37 +74,37 @@ namespace CafeJWTAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Cafes
+        // POST: api/Produtors
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Cafe>> PostCafe(Cafe cafe)
+        public async Task<ActionResult<Produtor>> PostProdutor(Produtor produtor)
         {
-            _context.Cafe.Add(cafe);
+            _context.Produtor.Add(produtor);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCafe", new { id = cafe.Id }, cafe);
+            return CreatedAtAction("GetProdutor", new { id = produtor.ProdutorId }, produtor);
         }
 
-        // DELETE: api/Cafes/5
+        // DELETE: api/Produtors/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Cafe>> DeleteCafe(int id)
+        public async Task<ActionResult<Produtor>> DeleteProdutor(int id)
         {
-            var cafe = await _context.Cafe.FindAsync(id);
-            if (cafe == null)
+            var produtor = await _context.Produtor.FindAsync(id);
+            if (produtor == null)
             {
                 return NotFound();
             }
 
-            _context.Cafe.Remove(cafe);
+            _context.Produtor.Remove(produtor);
             await _context.SaveChangesAsync();
 
-            return cafe;
+            return produtor;
         }
 
-        private bool CafeExists(int id)
+        private bool ProdutorExists(int id)
         {
-            return _context.Cafe.Any(e => e.Id == id);
+            return _context.Produtor.Any(e => e.ProdutorId == id);
         }
     }
 }

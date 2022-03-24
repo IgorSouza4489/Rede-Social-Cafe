@@ -47,7 +47,7 @@
         <div class="col-md-3">
             <div class="card">
                 <div class="card-header d-flex align-items-center justify-content-between">
-                    <div class="card-title text-center">Usuário</div>
+                    <div class="card-title text-center"></div>
                     <a href="#" data-toggle="tooltip" data-placement="bottom" title="Refresh"></a>
                 </div>
                 <ul class="list-group list-group-flush">
@@ -234,7 +234,7 @@
                 }
             </style>
             <div class="card mb-0">
-                <a asp-controller="Cafes" asp-action="Create" class="btn btn-sm btn-secondary float-right">
+                <a asp-controller="Cafes1" asp-action="Create" class="btn btn-sm btn-secondary float-right">
                     Publicar café
                 </a>
             </div>
@@ -258,7 +258,7 @@
                                 <div class="ml-2">
                                     <div class="h5 m-0"></div>
                                     <div class="h7 text-muted">
-                                        @Html.DisplayFor(modelItem => item.Produtor.ProdutorId)
+                                        <i><strong>Produtor: </strong></i>@Html.DisplayFor(modelItem => item.Produtor.ProdutorName)
                                     </div>
                                 </div>
                             </div>
@@ -288,7 +288,7 @@
                             <a class="text-muted h7 mb-2">Café</a><br /> <a>@Html.DisplayFor(modelItem => item.NomeCafe)</a>
                         </p>
                         <p class="card-text">
-                            <a class="text-muted h7 mb-2">Região</a><br /> <a>@Html.DisplayFor(modelItem => item.Regiao.RegiaoId)</a>
+                            <a class="text-muted h7 mb-2">Região</a><br /> <a>@Html.DisplayFor(modelItem => item.Regiao.RegiaoName)</a>
                         </p>
 
                         <p class="card-text">
@@ -302,7 +302,7 @@
                     </div>
                     <div class="card-footer">
                         <!----------- <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>------->
-                        <a style="" class="card-link" asp-area="" asp-controller="Cafes" asp-action="Details" asp-route-id="@item.Id">
+                        <a style="" class="card-link" asp-area="" asp-controller="Cafes1" asp-action="Details" asp-route-id="@item.Id">
                             <i class="fa fa-comment"></i>
                             Comentários
                         </a>

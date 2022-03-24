@@ -85,7 +85,7 @@ namespace CafeJWTMVC.Areas.Identity.Pages.Account
                 {
 
                     _logger.LogInformation("User logged in.");
-                    return RedirectToAction("Index", "Cafes"); ;
+                    return RedirectToAction("Index", "Cafes1"); ;
                 }
                 if (result.RequiresTwoFactor)
                 {

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Core.Models.Regiao>
+
+<p>
+    <a asp-action="Create" class="btn btn-sm btn-secondary">
+        Adicionar Região
+    </a>
+</p>
+<table class="table">
+ 
+@foreach (var item in Model) {
+    <div class="card mb-3">
+
+        <div class="card-header">
+            <a style="float:right;" class="btn btn-sm btn-light"  asp-action="Delete" asp-route-id="@item.RegiaoId">
+                Excluir Região
+            </a>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                <div>
+                    Id : @Html.DisplayFor(modelItem => item.RegiaoId)
+                </div>
+            </h5>
+            <div>
+               Região :  @Html.DisplayFor(modelItem => item.RegiaoName)
+            </div>
+        </div>
+    </div>
+}
+</table>
