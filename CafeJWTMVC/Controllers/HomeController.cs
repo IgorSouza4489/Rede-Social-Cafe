@@ -59,7 +59,7 @@ namespace CafeJWTMVC.Controllers
                     HttpContext.Session.SetString("JWToken", token);
                 }
 
-                return Redirect("~/Cafes/Index");
+                return Redirect("~/Midias1/Index");
             }
         }
 

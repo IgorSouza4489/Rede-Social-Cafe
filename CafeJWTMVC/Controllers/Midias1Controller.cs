@@ -83,9 +83,7 @@ namespace CafeJWTMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Midia pais)
         {
-
             var Foto = UploadBlob(pais.Imagem);
-
             if (ModelState.IsValid)
             {
                 var connectionString = "Server = (localdb)\\mssqllocaldb; Database = CafeJWTMVC; Trusted_Connection = True; MultipleActiveResultSets = true";

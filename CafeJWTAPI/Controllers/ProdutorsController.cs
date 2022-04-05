@@ -12,6 +12,7 @@ namespace CafeJWTAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class ProdutorsController : ControllerBase
     {
         private readonly ApplicationDBContext _context;

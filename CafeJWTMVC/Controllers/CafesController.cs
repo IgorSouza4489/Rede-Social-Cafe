@@ -15,7 +15,6 @@ using System.Threading.Tasks;
 
 namespace CafeJWTMVC.Controllers
 {
-    [Authorize]
     public class CafesController : Controller
     {
         private readonly ApplicationDBContext _context;

@@ -273,7 +273,7 @@
                         <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>@Html.DisplayFor(modelItem => item.PublishedDate)</div>
 
                         <p class="card-text">
-                            <a style="text-align:left;" class="text-muted h7 mb-2">Foto do café</a><br /> <a> <img src=" @Html.DisplayFor(model => item.UrlFoto)" alt="" width="200"></a>
+                             <a style=""> <img src=" @Html.DisplayFor(model => item.UrlFoto)" alt="" width="100"></a>
                         </p>
 
                         <p class="card-text">
@@ -303,36 +303,56 @@
                     </div>
                 </div>
 
-                <!-- Post /////-->
-                <!--- \\\\\\\Post-->
-                <!-- Post /////-->
 
 
             }
         </div>
         <div class="col-md-3">
             <div class="card">
-                <div class="card-body">
-                    <div class="h5"></div>
-                    <div class="h7 text-muted">Fullname : Miracles Lee Cross</div>
-                    <div class="h7">
-                        Developer of web applications, JavaScript, PHP, Java, Python, Ruby, Java, Node.js,
-                        etc.
+                <div class="card-header">
+                </div>
+                <div class="p-2">
+                    <div class="row px-2">
+                        <div class="col-6 p-1">
+                            <a href="#">
+                                <img src="https://cf.shopee.com.br/file/597803dd5fed316981e7182a3aec6bf2" alt="Recent photo" class="img-fluid">
+                            </a>
+                        </div>
+                        <div class="col-6 p-1">
+                            <a href="#">
+                                <img src="https://images.squarespace-cdn.com/content/v1/58ecd80b725e25240edc0606/1619118953644-7LRF3EL7NVWTYH9014TV/americano.JPG?format=1000w" alt="Recent photo" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row px-2">
+                        <div class="col-6 p-1">
+                            <a href="#">
+                                <img src="https://cdn.awsli.com.br/1000x1000/1897/1897136/produto/95854145/a63c6eaf19.jpg" alt="Recent photo" class="img-fluid">
+                            </a>
+                        </div>
+                        <div class="col-6 p-1">
+                            <a href="#">
+                                <img src="https://cdn.awsli.com.br/1000x1000/385/385145/produto/14689627/c4d50358a0.jpg" alt="Recent photo" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row px-2">
+                        <div class="col-6 p-1">
+                            <a href="#">
+                                <img src="https://cdn.awsli.com.br/1000x1000/2018/2018668/produto/118144647/be9d700c59.jpg" alt="Recent photo" class="img-fluid">
+                            </a>
+                        </div>
+                        <div class="col-6 p-1">
+                            <a href="#">
+                                <img src="https://cafeorfeu.vteximg.com.br/arquivos/ids/156099-1000-1000/cafe-orfeuPrensa-Francesa-1L-Mod-Chambord-Prateada-Bodum.png?v=636444717816500000" alt="Recent photo" class="img-fluid">
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <div class="h6 text-muted">Followers</div>
-                        <div class="h5">5.2342</div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="h6 text-muted">Following</div>
-                        <div class="h5">6758</div>
-                    </li>
-                    <li class="list-group-item">Vestibulum at eros</li>
-                </ul>
+                <a asp-controller="Midias1" asp-action="Index" class="btn btn-sm btn-secondary float-right">
+                    <i class="material-icons align-middle md-18 text">Mídias</i>
+                </a>
             </div>
-        </div>
     </div>
 
 </div>

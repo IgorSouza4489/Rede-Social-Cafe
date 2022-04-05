@@ -1,4 +1,4 @@
-﻿/*using Core.Models;
+﻿using Core.Models;
 using Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -104,4 +104,4 @@ namespace CafeJWTAPI.Controllers
             return _context.UserInfo.Any(e => e.UserId == id);
         }
     }
-}*/
+}
