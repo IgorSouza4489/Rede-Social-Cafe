@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,6 +9,8 @@ namespace Core.Models
 {
     public class Cafe
     {
+        public string Username { get; set; }
+
         public int Id { get; set; }
         [Required]
         public string NomeCafe { get; set; }
@@ -20,11 +23,12 @@ namespace Core.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime PublishedDate { get; set; } = DateTime.Now;
 
+        public string UrlFoto { get; set; }
+        [NotMapped]
+        public IFormFile Foto { get; set; }
         public ICollection<CafeComment> CafesComments { get; set; }
       
-     
         public int ProdutorId { get; set; }
-   
         public int RegiaoId { get; set; }
         public virtual Produtor Produtor { get; set; }
         public virtual Regiao Regiao { get; set; }

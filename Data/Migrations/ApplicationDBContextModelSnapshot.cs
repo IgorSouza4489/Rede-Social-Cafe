@@ -46,6 +46,12 @@ namespace Data.Migrations
                     b.Property<int>("RegiaoId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UrlFoto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProdutorId");
@@ -79,6 +85,21 @@ namespace Data.Migrations
                     b.HasIndex("CafesId");
 
                     b.ToTable("CafeComments");
+                });
+
+            modelBuilder.Entity("Core.Models.Midia", b =>
+                {
+                    b.Property<int>("MidiasId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Foto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MidiasId");
+
+                    b.ToTable("Midia");
                 });
 
             modelBuilder.Entity("Core.Models.Produtor", b =>
@@ -164,11 +185,6 @@ namespace Data.Migrations
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
-
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(256)")

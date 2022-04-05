@@ -2,31 +2,28 @@
 
 namespace Data.Migrations
 {
-    public partial class Initial2 : Migration
+    public partial class error3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "Midia",
                 columns: table => new
                 {
-                    ProdId = table.Column<int>(nullable: false)
+                    MidiasId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProdName = table.Column<string>(nullable: true),
-                    Category = table.Column<string>(nullable: true),
-                    UnitPrice = table.Column<decimal>(nullable: false),
-                    StockQty = table.Column<int>(nullable: false)
+                    Foto = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.ProdId);
+                    table.PrimaryKey("PK_Midia", x => x.MidiasId);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "Midia");
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Core.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [NotMapped]
         public int UserId { get; set; }
         public override string UserName { get; set; }
         public string CafeFavorito { get; set; }

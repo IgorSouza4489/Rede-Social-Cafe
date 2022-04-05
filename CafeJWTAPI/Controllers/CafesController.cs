@@ -107,5 +107,7 @@ namespace CafeJWTAPI.Controllers
         {
             return _context.Cafe.Any(e => e.Id == id);
         }
+
+
     }
 }

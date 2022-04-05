@@ -7,94 +7,111 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Core.Models;
 using Data;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.WindowsAzure.Storage;
+using Microsoft.Data.SqlClient;
+using System.Data;
+using Microsoft.AspNetCore.Authorization;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Newtonsoft.Json;
 
 namespace CafeJWTMVC.Controllers
 {
     [Authorize]
-    public class Cafes1Controller : Controller
+    public class Midias1Controller : Controller
     {
+        public static string baseUrl = "http://localhost:62049/api/midias/";
+
         private readonly ApplicationDBContext _context;
 
-        public Cafes1Controller(ApplicationDBContext context)
+        public Midias1Controller(ApplicationDBContext context)
         {
             _context = context;
         }
 
-        // GET: Cafes1
+        // GET: Midias1
         public async Task<IActionResult> Index()
         {
-            var applicationDBContext = _context.Cafe.Include(c => c.Produtor).Include(c => c.Regiao);
-            return View(await applicationDBContext.ToListAsync());
+
+            var products = await GetAll();
+            return View(products);
         }
 
-        // GET: Cafes1/Details/5
+        [HttpGet]
+        public async Task<List<Midia>> GetAll()
+        {
+            var accessToken = HttpContext.Session.GetString("JWToken");
+            var url = baseUrl;
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            string jsonStr = await client.GetStringAsync(url);
+
+            var res = JsonConvert.DeserializeObject<List<Midia>>(jsonStr).ToList();
+
+            return res;
+
+        }
+        // GET: Midias1/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
-                return BadRequest();
+                return NotFound();
             }
-            Cafe cafe = _context.Cafe.Find(id);
-            CafeCommentViewModel vm = new CafeCommentViewModel();
 
-            if (cafe == null)
+            var midia = await _context.Midia
+                .FirstOrDefaultAsync(m => m.MidiasId == id);
+            if (midia == null)
             {
                 return NotFound();
             }
-            vm.CafesId = id.Value;
-            vm.NomeCafe = cafe.NomeCafe;
-            var Comments = _context.CafeComments.Where(d => d.CafesId.Equals(id.Value)).ToList();
-            vm.ListOfComments = Comments;
 
-            var ratings = _context.CafeComments.Where(d => d.CafesId.Equals(id.Value)).ToList();
-            if (ratings.Count() > 0)
-            {
-                var ratingSum = ratings.Sum(d => d.Rating);
-                ViewBag.RatingSum = ratingSum;
-                var ratingCount = ratings.Count();
-                ViewBag.RatingCount = ratingCount;
-            }
-            else
-            {
-                ViewBag.RatingSum = 0;
-                ViewBag.RatingCount = 0;
-            }
-            return View(vm);
+            return View(midia);
         }
 
-        // GET: Cafes1/Create
+        // GET: Midias1/Create
         public IActionResult Create()
         {
-            ViewData["ProdutorId"] = new SelectList(_context.Produtor, "ProdutorId", "ProdutorId");
-            ViewData["RegiaoId"] = new SelectList(_context.Regiao, "RegiaoId", "RegiaoId");
             return View();
         }
 
-        // POST: Cafes1/Create
+        // POST: Midias1/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NomeCafe,Nota,Impressoes,PublishedDate,ProdutorId,RegiaoId, UrlFoto, Foto")] Cafe cafe)
+        public async Task<ActionResult> Create(Midia pais)
         {
-            var Foto = UploadBlob(cafe.Foto);
+
+            var Foto = UploadBlob(pais.Imagem);
+
             if (ModelState.IsValid)
             {
-                cafe.UrlFoto = await Foto;
-                cafe.Username = User.Identity.Name;
-                _context.Add(cafe);
-                await _context.SaveChangesAsync();
+                var connectionString = "Server = (localdb)\\mssqllocaldb; Database = CafeJWTMVC; Trusted_Connection = True; MultipleActiveResultSets = true";
+                SqlConnection connection = new SqlConnection(connectionString);
+                {
+                    var storedprocedure = "CadastrarMidias";
+                    var sqlCommand = new SqlCommand(storedprocedure, connection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddWithValue("@Foto", await Foto);
+                    try
+                    {
+                        connection.Open();
+                        sqlCommand.ExecuteNonQuery();
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProdutorId"] = new SelectList(_context.Produtor, "ProdutorId", "ProdutorId", cafe.ProdutorId);
-            ViewData["RegiaoId"] = new SelectList(_context.Regiao, "RegiaoId", "RegiaoId", cafe.RegiaoId);
-            return View(cafe);
+            return View(pais);
         }
 
-        // GET: Cafes1/Edit/5
+
+        // GET: Midias1/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -102,24 +119,22 @@ namespace CafeJWTMVC.Controllers
                 return NotFound();
             }
 
-            var cafe = await _context.Cafe.FindAsync(id);
-            if (cafe == null)
+            var midia = await _context.Midia.FindAsync(id);
+            if (midia == null)
             {
                 return NotFound();
             }
-            ViewData["ProdutorId"] = new SelectList(_context.Produtor, "ProdutorId", "ProdutorId", cafe.ProdutorId);
-            ViewData["RegiaoId"] = new SelectList(_context.Regiao, "RegiaoId", "RegiaoId", cafe.RegiaoId);
-            return View(cafe);
+            return View(midia);
         }
 
-        // POST: Cafes1/Edit/5
+        // POST: Midias1/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NomeCafe,Nota,Impressoes,PublishedDate,ProdutorId,RegiaoId")] Cafe cafe)
+        public async Task<IActionResult> Edit(int id, [Bind("MidiasId,Foto")] Midia midia)
         {
-            if (id != cafe.Id)
+            if (id != midia.MidiasId)
             {
                 return NotFound();
             }
@@ -128,12 +143,12 @@ namespace CafeJWTMVC.Controllers
             {
                 try
                 {
-                    _context.Update(cafe);
+                    _context.Update(midia);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CafeExists(cafe.Id))
+                    if (!MidiaExists(midia.MidiasId))
                     {
                         return NotFound();
                     }
@@ -144,12 +159,10 @@ namespace CafeJWTMVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProdutorId"] = new SelectList(_context.Produtor, "ProdutorId", "ProdutorId", cafe.ProdutorId);
-            ViewData["RegiaoId"] = new SelectList(_context.Regiao, "RegiaoId", "RegiaoId", cafe.RegiaoId);
-            return View(cafe);
+            return View(midia);
         }
 
-        // GET: Cafes1/Delete/5
+        // GET: Midias1/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -157,34 +170,31 @@ namespace CafeJWTMVC.Controllers
                 return NotFound();
             }
 
-            var cafe = await _context.Cafe
-                .Include(c => c.Produtor)
-                .Include(c => c.Regiao)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (cafe == null)
+            var midia = await _context.Midia
+                .FirstOrDefaultAsync(m => m.MidiasId == id);
+            if (midia == null)
             {
                 return NotFound();
             }
 
-            return View(cafe);
+            return View(midia);
         }
 
-        // POST: Cafes1/Delete/5
+        // POST: Midias1/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var cafe = await _context.Cafe.FindAsync(id);
-            _context.Cafe.Remove(cafe);
+            var midia = await _context.Midia.FindAsync(id);
+            _context.Midia.Remove(midia);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CafeExists(int id)
+        private bool MidiaExists(int id)
         {
-            return _context.Cafe.Any(e => e.Id == id);
+            return _context.Midia.Any(e => e.MidiasId == id);
         }
-
 
         public async Task<string> UploadBlob(IFormFile imageFile)
         {
@@ -199,6 +209,5 @@ namespace CafeJWTMVC.Controllers
             var uri = blob.Uri.ToString();
             return uri;
         }
-
     }
 }

@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Core.Models.Midia>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <img src=" @Html.DisplayFor(model => item.Foto)" style="width:50px" />
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MidiasId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MidiasId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MidiasId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -17,6 +17,8 @@ namespace Data
         {
         }
 
+       
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -33,11 +35,10 @@ namespace Data
                .HasForeignKey(bi => bi.RegiaoId);
         }
         public DbSet<Core.Models.Cafe> Cafe { get; set; }
+        public DbSet<Core.Models.Midia> Midia { get; set; }
+
         public DbSet<Core.Models.Produtor> Produtor { get; set; }
         public DbSet<Core.Models.Regiao> Regiao { get; set; }
-
-
-
         public virtual DbSet<UserInfo> UserInfo { get; set; }
         public DbSet<Core.Models.CafeComment> CafeComments { get; set; }
 

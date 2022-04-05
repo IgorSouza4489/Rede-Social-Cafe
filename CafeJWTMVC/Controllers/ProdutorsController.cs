@@ -110,10 +110,8 @@ namespace CafeJWTMVC.Controllers
             var url = baseUrl + id;
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
             var stringContent = new StringContent(JsonConvert.SerializeObject(products), Encoding.UTF8, "application/json");
             await client.PutAsync(url, stringContent);
-
             return RedirectToAction(nameof(Index));
 
         }

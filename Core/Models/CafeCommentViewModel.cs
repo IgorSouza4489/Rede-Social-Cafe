@@ -7,6 +7,7 @@ namespace Core.Models
     public class CafeCommentViewModel
     {
         public string Title { get; set; }
+
         public string NomeCafe { get; set; }
         public List<CafeComment> ListOfComments { get; set; }
         public string Comment { get; set; }

@@ -36,19 +36,23 @@ namespace CafeJWTMVC.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            public string CafeFavorito { get; set; }
         }
 
         private async Task LoadAsync(UserInfo user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
+            var cafeFavorito = user.CafeFavorito;
             Username = userName;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
-            };
+                PhoneNumber = phoneNumber,
+               CafeFavorito = cafeFavorito
+
+        };
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -75,6 +79,13 @@ namespace CafeJWTMVC.Areas.Identity.Pages.Account.Manage
             {
                 await LoadAsync(user);
                 return Page();
+            }
+            //add cafefavorito
+            var cafeFavorito = user.CafeFavorito;
+            if (Input.CafeFavorito != cafeFavorito)
+            {
+                user.CafeFavorito = Input.CafeFavorito;
+                await _userManager.UpdateAsync(user);
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);

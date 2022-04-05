@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class error : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,8 +39,6 @@ namespace Data.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(maxLength: 256, nullable: true),
                     CafeFavorito = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true)
@@ -51,20 +49,29 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cafe",
+                name: "Produtor",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    ProdutorId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Produtor = table.Column<string>(nullable: false),
-                    NomeCafe = table.Column<string>(nullable: false),
-                    Nota = table.Column<int>(nullable: false),
-                    Regiao = table.Column<string>(nullable: false),
-                    Impressoes = table.Column<string>(nullable: false)
+                    ProdutorName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cafe", x => x.Id);
+                    table.PrimaryKey("PK_Produtor", x => x.ProdutorId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Regiao",
+                columns: table => new
+                {
+                    RegiaoId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RegiaoName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Regiao", x => x.RegiaoId);
                 });
 
             migrationBuilder.CreateTable(
@@ -174,7 +181,38 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CafeComment",
+                name: "Cafe",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(nullable: true),
+                    NomeCafe = table.Column<string>(nullable: false),
+                    Nota = table.Column<int>(nullable: false),
+                    Impressoes = table.Column<string>(nullable: false),
+                    PublishedDate = table.Column<DateTime>(nullable: false),
+                    ProdutorId = table.Column<int>(nullable: false),
+                    RegiaoId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cafe", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cafe_Produtor_ProdutorId",
+                        column: x => x.ProdutorId,
+                        principalTable: "Produtor",
+                        principalColumn: "ProdutorId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Cafe_Regiao_RegiaoId",
+                        column: x => x.RegiaoId,
+                        principalTable: "Regiao",
+                        principalColumn: "RegiaoId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CafeComments",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -186,9 +224,9 @@ namespace Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CafeComment", x => x.Id);
+                    table.PrimaryKey("PK_CafeComments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CafeComment_Cafe_CafesId",
+                        name: "FK_CafeComments_Cafe_CafesId",
                         column: x => x.CafesId,
                         principalTable: "Cafe",
                         principalColumn: "Id",
@@ -235,8 +273,18 @@ namespace Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CafeComment_CafesId",
-                table: "CafeComment",
+                name: "IX_Cafe_ProdutorId",
+                table: "Cafe",
+                column: "ProdutorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cafe_RegiaoId",
+                table: "Cafe",
+                column: "RegiaoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CafeComments_CafesId",
+                table: "CafeComments",
                 column: "CafesId");
         }
 
@@ -258,7 +306,7 @@ namespace Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CafeComment");
+                name: "CafeComments");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -268,6 +316,12 @@ namespace Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Cafe");
+
+            migrationBuilder.DropTable(
+                name: "Produtor");
+
+            migrationBuilder.DropTable(
+                name: "Regiao");
         }
     }
 }

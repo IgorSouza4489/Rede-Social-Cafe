@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20220322185805_initgh")]
-    partial class initgh
+    [Migration("20220405001935_error3")]
+    partial class error3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,18 +39,23 @@ namespace Data.Migrations
                     b.Property<int>("Nota")
                         .HasColumnType("int");
 
-                    b.Property<string>("Produtor")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ProdutorId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("PublishedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Regiao")
-                        .IsRequired()
+                    b.Property<int>("RegiaoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProdutorId");
+
+                    b.HasIndex("RegiaoId");
 
                     b.ToTable("Cafe");
                 });
@@ -79,6 +84,51 @@ namespace Data.Migrations
                     b.HasIndex("CafesId");
 
                     b.ToTable("CafeComments");
+                });
+
+            modelBuilder.Entity("Core.Models.Midia", b =>
+                {
+                    b.Property<int>("MidiasId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Foto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MidiasId");
+
+                    b.ToTable("Midia");
+                });
+
+            modelBuilder.Entity("Core.Models.Produtor", b =>
+                {
+                    b.Property<int>("ProdutorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ProdutorName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProdutorId");
+
+                    b.ToTable("Produtor");
+                });
+
+            modelBuilder.Entity("Core.Models.Regiao", b =>
+                {
+                    b.Property<int>("RegiaoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("RegiaoName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RegiaoId");
+
+                    b.ToTable("Regiao");
                 });
 
             modelBuilder.Entity("Core.Models.UserInfo", b =>
@@ -134,11 +184,6 @@ namespace Data.Migrations
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
-
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(256)")
@@ -286,6 +331,21 @@ namespace Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Core.Models.Cafe", b =>
+                {
+                    b.HasOne("Core.Models.Produtor", "Produtor")
+                        .WithMany("Cafe")
+                        .HasForeignKey("ProdutorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Models.Regiao", "Regiao")
+                        .WithMany("Cafe")
+                        .HasForeignKey("RegiaoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Core.Models.CafeComment", b =>

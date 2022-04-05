@@ -8,19 +8,7 @@
     </h4>
 </div>
 
-
-
-
-
-
 <br />
-
-
-
-
-
-
-
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -258,7 +246,8 @@
                                 <div class="ml-2">
                                     <div class="h5 m-0"></div>
                                     <div class="h7 text-muted">
-                                        <i><strong>Produtor: </strong></i>@Html.DisplayFor(modelItem => item.Produtor.ProdutorName)
+                                        <i><strong>Café: </strong></i>@Html.DisplayFor(modelItem => item.NomeCafe)
+
                                     </div>
                                 </div>
                             </div>
@@ -283,9 +272,12 @@
                     <div class="card-body">
                         <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>@Html.DisplayFor(modelItem => item.PublishedDate)</div>
 
+                        <p class="card-text">
+                            <a style="text-align:left;" class="text-muted h7 mb-2">Foto do café</a><br /> <a> <img src=" @Html.DisplayFor(model => item.UrlFoto)" alt="" width="200"></a>
+                        </p>
 
                         <p class="card-text">
-                            <a class="text-muted h7 mb-2">Café</a><br /> <a>@Html.DisplayFor(modelItem => item.NomeCafe)</a>
+                            <a class="text-muted h7 mb-2">Produtor do café</a><br /> <a>@Html.DisplayFor(modelItem => item.Produtor.ProdutorName)</a>
                         </p>
                         <p class="card-text">
                             <a class="text-muted h7 mb-2">Região</a><br /> <a>@Html.DisplayFor(modelItem => item.Regiao.RegiaoName)</a>
@@ -297,6 +289,7 @@
 
                                 <textarea maxlength="60" readonly class="form-control" id="exampleFormControlTextarea1" rows="3">@Html.DisplayFor(modelItem => item.Impressoes)</textarea>
                             </div>
+                            <i style="float:right !important; color:grey; font-size:10px ">Postado por @Html.DisplayFor(modelItem => item.Username) </i>
 
                         </p>
                     </div>

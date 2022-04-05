@@ -40,7 +40,7 @@ namespace CafeJWTAPI.Controllers
 
         }
 
-        /* private readonly UserManager<UserInfo> userManager;
+         private readonly UserManager<UserInfo> userManager;
 
          [HttpPost]
          [Route("Register")]
@@ -68,7 +68,7 @@ namespace CafeJWTAPI.Controllers
 
              return Ok(new { Message = "User Registration Successful" });
          }
-        */
+        
 
 
         

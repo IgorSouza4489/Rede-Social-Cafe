@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20220313055411_Initial3")]
-    partial class Initial3
+    [Migration("20220405191626_sauhdghuasdg")]
+    partial class sauhdghuasdg
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,15 +39,26 @@ namespace Data.Migrations
                     b.Property<int>("Nota")
                         .HasColumnType("int");
 
-                    b.Property<string>("Produtor")
-                        .IsRequired()
+                    b.Property<int>("ProdutorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PublishedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("RegiaoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UrlFoto")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Regiao")
-                        .IsRequired()
+                    b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProdutorId");
+
+                    b.HasIndex("RegiaoId");
 
                     b.ToTable("Cafe");
                 });
@@ -78,28 +89,49 @@ namespace Data.Migrations
                     b.ToTable("CafeComments");
                 });
 
-            modelBuilder.Entity("Core.Models.Products", b =>
+            modelBuilder.Entity("Core.Models.Midia", b =>
                 {
-                    b.Property<int>("ProdId")
+                    b.Property<int>("MidiasId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Category")
+                    b.Property<string>("Foto")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProdName")
+                    b.HasKey("MidiasId");
+
+                    b.ToTable("Midia");
+                });
+
+            modelBuilder.Entity("Core.Models.Produtor", b =>
+                {
+                    b.Property<int>("ProdutorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ProdutorName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StockQty")
-                        .HasColumnType("int");
+                    b.HasKey("ProdutorId");
 
-                    b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.ToTable("Produtor");
+                });
 
-                    b.HasKey("ProdId");
+            modelBuilder.Entity("Core.Models.Regiao", b =>
+                {
+                    b.Property<int>("RegiaoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.ToTable("Products");
+                    b.Property<string>("RegiaoName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RegiaoId");
+
+                    b.ToTable("Regiao");
                 });
 
             modelBuilder.Entity("Core.Models.UserInfo", b =>
@@ -155,11 +187,6 @@ namespace Data.Migrations
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
-
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(256)")
@@ -307,6 +334,21 @@ namespace Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Core.Models.Cafe", b =>
+                {
+                    b.HasOne("Core.Models.Produtor", "Produtor")
+                        .WithMany("Cafe")
+                        .HasForeignKey("ProdutorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Models.Regiao", "Regiao")
+                        .WithMany("Cafe")
+                        .HasForeignKey("RegiaoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Core.Models.CafeComment", b =>
