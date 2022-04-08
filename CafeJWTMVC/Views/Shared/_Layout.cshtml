@@ -15,62 +15,30 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <!-------<img src="https://storagevik.blob.core.windows.net/cafecontainer/LogoAmantesCafe.png" width="50" height="50" alt="">--------->
-
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
             <div class="container">
+                <a class="navbar-brand text-white" asp-area="" asp-controller="Cafes1" asp-action="Index"><img src="https://storagevik.blob.core.windows.net/cafecontainer/LogoAmantesCafe.png" width="100" height="100" align="left" /></a>
 
-                <div style="margin-left:300px" class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-
-                        <!----
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-            </li>---->
-                        <!--- <li class="nav-item">
-                                        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-                                    </li>
-            ------>
-
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="listusers">Usuários</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Regiaos" asp-action="Index">Regiões</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Produtors" asp-action="Index">Produtores</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Cafes1" asp-action="Index">Cafés</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Cafecomments" asp-action="Index">Comentários</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Midias1" asp-action="Index">Mídias</a>
-                        </li>
+                <a class="nav-link text-white" asp-area="" asp-controller="Dashboard" asp-action="listusers">Usuários</a>
+                <a class="nav-link text-white" asp-area="" asp-controller="Regiaos" asp-action="Index">Regiões</a>
+                <a class="nav-link text-white" asp-area="" asp-controller="Produtors" asp-action="Index">Produtores</a>
+                <a class="nav-link text-white" asp-area="" asp-controller="Cafes1" asp-action="Index">Cafés</a>
+                <a class="nav-link text-white" asp-area="" asp-controller="Cafecomments" asp-action="Index">Comentários</a>
+                <a class="nav-link text-white" asp-area="" asp-controller="Midias1" asp-action="Index">Mídias</a>
 
 
 
 
-                    </ul>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial.cshtml" />
+
                 </div>
-                <!----
 
-    <a class="btn btn-sm btn-danger" asp-area="" asp-controller="Home" asp-action="Logoff" style="float:right;">
-        LogOff
-    </a>--------->
-                <div class="nav-item">
-                    <partial name="_LoginPartial" />
-                </div>
             </div>
-
         </nav>
     </header>
     <div class="container">
