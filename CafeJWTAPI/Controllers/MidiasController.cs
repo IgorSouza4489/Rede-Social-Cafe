@@ -15,7 +15,7 @@ namespace CafeJWTAPI.Controllers
     [ApiController]
     public class MidiasController : ControllerBase
     {
-        private readonly ApplicationDBContext _context;
+      private readonly ApplicationDBContext _context;
 
         public MidiasController(ApplicationDBContext context)
         {
@@ -24,20 +24,10 @@ namespace CafeJWTAPI.Controllers
 
         // GET: api/<AmigosController>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Midia>>> GetAll()
+        public async Task<ActionResult<IEnumerable<Midia>>> GetCafe()
         {
 
-            var amigos = new List<Midia>();
-
-
-            amigos = _context.Midia.FromSqlRaw("EXECUTE dbo.ConsultarMidias ").ToList();
-
-            if (amigos == null)
-            {
-                return NoContent();
-            }
-
-            return amigos;
+            return await _context.Midia.ToListAsync();
         }
     }
 }
