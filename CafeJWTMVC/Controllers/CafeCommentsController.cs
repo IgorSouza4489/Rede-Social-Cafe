@@ -112,7 +112,7 @@ namespace CafeJWTMVC.Controllers
             _context.CafeComments.Add(cafcomment);
             _context.SaveChanges();
 
-            return RedirectToAction("Details", "Cafes", new { id = cafeId });
+            return RedirectToAction("Details", "Cafes1", new { id = cafeId });
 
         }
 
